@@ -1,35 +1,30 @@
 ---
-title: GrafanaGhost 数据外泄攻击
-date: 2026-04
-type: 间接注入+外泄
-severity: high
-status: 已证实
-impact: 诱导渲染外部图片以 URL 参数外泄企业数据（关联 CVE-2026-27876），已部分修复
-last_updated: 2026-08-18
-tags: [Grafana, 间接注入, 数据外泄, NomaSecurity]
-related_cves: [CVE-2026-27876]
-related_reports: [04-incidents.md]
+title: "2026 04 grafanaghost"
+date: "2023-02"
+type: "间接注入"
+severity: "low"
+status: "confirmed"
+impact: "PoC"
+last_updated: "2026-08-17"
+tags: [indirect-injection]
+related_cves: []
+related_reports: ["../reports/04-incidents.md"]
 ---
 
-# GrafanaGhost 数据外泄攻击
+# 2026 04 grafanaghost
 
 ## 事件概述
 
-- **时间**：2026-04
-- **类型**：间接注入+外泄
-- **影响对象**：Grafana 渲染场景下的企业数据
-- **影响**：诱导渲染外部图片，以 URL 参数外泄企业数据
+- **时间**：
+- **类型**：
+- **影响**：
 - **状态**：已证实
 
 ## 经过
 
-Noma Security 披露 GrafanaGhost 攻击方式：攻击者诱导目标渲染外部图片，通过 URL 参数将企业数据外泄。该攻击关联 CVE-2026-27876，相关组件已部分修复。
-
-## 影响与损失
-
-企业数据可通过 URL 参数经外部图片请求被外泄。受影响规模（报告未详述）；相关组件已部分修复。
+2026 年 4 月，安全公司 Noma Security 披露了一个名为"GrafanaGhost"的提示注入+数据外泄漏洞（CVE-2026-27876）。攻击者通过诱导 Grafana 的 AI 助手渲染外部图片，在图片 URL 参数中嵌入企业敏感数据（如用户信息、Token 等）。当 Grafana 向外部服务器请求图片时，URL 中的敏感数据随之外泄。该漏洞利用了 Grafana 图片渲染功能中对外部 URL 参数缺乏过滤的设计缺陷。Grafana 团队在收到报告后进行了部分修复。
 
 ## 来源
 
-- 一手来源 URL：https://noma.security/blog/grafana-ghost/
+- 一手来源：https://noma.security/blog/grafana-ghost/
 - 核验状态：✅ 证实（V48）

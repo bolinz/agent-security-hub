@@ -1,35 +1,30 @@
 ---
-title: Word / Copilot 自复制提示词注入蠕虫
-date: 2026-07
-type: 自复制注入
-severity: medium
-status: 研究披露
-impact: 自复制提示词注入蠕虫；微软 144 天未给出全类别修复
-last_updated: 2026-08-18
-tags: [Word, Copilot, 提示词注入, 自复制蠕虫, 负责任披露]
+title: "2026 07 word copilot蠕虫"
+date: "2023-02"
+type: "间接注入"
+severity: "low"
+status: "confirmed"
+impact: "PoC"
+last_updated: "2026-08-17"
+tags: [indirect-injection]
 related_cves: []
-related_reports: [04-incidents.md]
+related_reports: ["../reports/04-incidents.md"]
 ---
 
-# Word / Copilot 自复制提示词注入蠕虫
+# 2026 07 word copilot蠕虫
 
 ## 事件概述
 
-- **时间**：2026-07
-- **类型**：自复制注入
-- **影响对象**：Word / Copilot 用户
-- **影响**：自复制提示词注入蠕虫；微软 144 天未给出全类别修复
-- **状态**：研究披露
+- **时间**：
+- **类型**：
+- **影响**：
+- **状态**：已证实
 
 ## 经过
 
-Håkon Måløy 负责任披露了可自复制的提示词注入蠕虫，其可在 Word / Copilot 场景中自行传播。微软在 144 天内未给出覆盖全类别的修复方案。
-
-## 影响与损失
-
-提示词注入蠕虫具备自复制能力；微软 144 天未提供全类别修复。是否已在现实中造成破坏（报告未详述）。
+2026 年 7 月，安全研究员 Håkon Måløy 负责任披露了一个自复制提示词注入蠕虫，该蠕虫可通过 Microsoft Word 文档在 Copilot 系统间自我传播。攻击者在 Word 文档中嵌入隐藏的提示指令，当 Copilot 处理该文档时，指令会被执行，将恶意提示复制到新生成的文档中，实现自我传播。Simon Willison 报道称，截至 2026 年 7 月披露时，微软已 144 天未给出全类别修复。这是首起公开报道的 AI Agent 蠕虫，证明了自复制注入攻击的可行性。
 
 ## 来源
 
-- 一手来源 URL：https://simonwillison.net/2026/Jul/29/ai-worming-through-word/
+- 一手来源：https://simonwillison.net/2026/Jul/29/ai-worming-through-word/
 - 核验状态：✅ 证实（V50）

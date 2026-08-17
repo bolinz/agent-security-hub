@@ -10,7 +10,7 @@ Agent 相关漏洞（CVE 为主）。种子数据来自研究报告 01 章 1.3/1
 | CVE-2025-32711 | M365 Copilot | 注入+数据外泄 | 9.3 | EchoLeak 零点击注入 |
 | CVE-2025-59528 | Flowise | RCE（CustomMCP JS） | 10.0 | 在野利用，1.2-1.5 万实例 |
 | CVE-2026-27876 | Grafana | 注入+外泄 | — | GrafanaGhost 图片渲染外泄 |
-| CVE-2025-53773 | GitHub Copilot | RCE（注入 PR 描述） | 9.6 | — |
-| CVE-2025-59536 | Claude Code | RCE（注入→代码执行） | 8.7 | — |
+| CVE-2025-53773 | GitHub Copilot | RCE（注入→YOLO 模式） | 9.6 | NVD 官方 v3.1 为 7.8，9.6 为报告沿用第三方口径 |
+| CVE-2025-59536 | Claude Code | RCE（代码注入） | 8.7 | 启动信任对话框绕过；修复 1.0.111 |
 
 > 来源：研究报告 01 章 1.3/1.4、02 章 2.9；核验见 reports/ 核验表（V77 等）。

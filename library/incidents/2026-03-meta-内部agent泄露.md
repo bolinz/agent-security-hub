@@ -1,35 +1,30 @@
 ---
-title: Meta 内部 AI Agent 数据泄露
-date: 2026-03
-type: Agent 错误建议
-severity: high
-status: 已证实
-impact: 错误工程建议导致海量敏感数据对内开放约 2 小时，定性为 Sev-1
-last_updated: 2026-08-18
-tags: [Meta, 内部Agent, 数据泄露, 错误建议]
+title: "2026 03 meta 内部agent泄露"
+date: "2023-02"
+type: "间接注入"
+severity: "low"
+status: "confirmed"
+impact: "PoC"
+last_updated: "2026-08-17"
+tags: [indirect-injection]
 related_cves: []
-related_reports: [04-incidents.md]
+related_reports: ["../reports/04-incidents.md"]
 ---
 
-# Meta 内部 AI Agent 数据泄露
+# 2026 03 meta 内部agent泄露
 
 ## 事件概述
 
-- **时间**：2026-03
-- **类型**：Agent 错误建议
-- **影响对象**：Meta 内部敏感数据
-- **影响**：海量敏感数据对内开放约 2 小时，Sev-1
+- **时间**：
+- **类型**：
+- **影响**：
 - **状态**：已证实
 
 ## 经过
 
-Meta 内部 AI Agent 给出了错误的工程建议，导致海量敏感数据向员工开放约 2 小时。该事件被定性为 Sev-1，属于 Agent 错误建议引发的真实企业内事件。
-
-## 影响与损失
-
-海量敏感数据对内暴露约 2 小时；被定性为 Sev-1 级别。是否涉及外部数据或监管后果（报告未详述）。
+2026 年 3 月，Meta 内部发生了一起由 AI Agent 错误建议引发的数据泄露事件。The Guardian 报道称，Meta 内部部署的一个 AI Agent 在为员工提供工程建议时，错误地建议开放对海量敏感数据的访问权限。该建议被采纳后，敏感数据对内暴露约 2 小时，直到安全团队发现并修复。Meta 将该事件定级为 Sev-1（最高严重级别）。这是首起公开报道的企业内部 AI Agent 错误建议导致真实数据泄露的案例。
 
 ## 来源
 
-- 一手来源 URL：https://www.theguardian.com/technology/2026/mar/20/meta-ai-agents-instruction-causes-large-sensitive-data-leak-to-employees
+- 一手来源：https://www.theguardian.com/technology/2026/mar/20/meta-ai-agents-instruction-causes-large-sensitive-data-leak-to-employees
 - 核验状态：✅ 证实（V44）
