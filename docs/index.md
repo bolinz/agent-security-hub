@@ -42,6 +42,7 @@
 | 2026-04 | GrafanaGhost | 注入+外泄 | [详情](../library/incidents/2026-04-grafanaghost.md) |
 | 2026-06 | Meta AI 账号接管 | AI 客服社工 | [详情](../library/incidents/2026-06-meta-ai账号接管.md) |
 | 2026-07 | Word/Copilot 蠕虫 | 自复制注入 | [详情](../library/incidents/2026-07-word-copilot蠕虫.md) |
+| 2026-07 | OpenAI 攻击 HuggingFace | 自主智能体攻击 | [详情](../library/incidents/2026-07-openai-攻击huggingface.md) |
 
 ### 2025
 
@@ -90,6 +91,7 @@
 |------|------|------|
 | OpenClaw 邮箱删除 | 2026-02 | [详情](../library/incidents/2026-02-openclaw邮箱删除.md) |
 | Meta AI 账号接管 | 2026-06 | [详情](../library/incidents/2026-06-meta-ai账号接管.md) |
+| OpenAI 攻击 HuggingFace | 2026-07 | [详情](../library/incidents/2026-07-openai-攻击huggingface.md) |
 
 ### RCE / 代码执行
 

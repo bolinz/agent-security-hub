@@ -12,6 +12,9 @@
   - 评估模型章节移至收官位置，新增三件套 × 三问价值收束
   - "致命三角（Simon Willison）"改为"结构性风险组合"，锚定 OWASP LLM/Agentic Top 10 与 MITRE ATLAS
   - 新增阅读时间表、每节核心要点、术语速查、权威性分级、推荐阅读
+  - 案例精简为 3 起（OpenClaw / Flowise / OpenAI×HuggingFace），新增"OpenAI 攻击 HuggingFace"自主智能体入侵案例
+- 新增事件条目 `library/incidents/2026-07-openai-攻击huggingface.md`（HF 官方技术时间线 + OpenAI 官方公告）
+- 已证实事件清单补充至 19 起
 - README.md / docs/index.md / CLAUDE.md 同步更新文件名与描述
 
 ### 修复

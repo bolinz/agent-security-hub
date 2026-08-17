@@ -5,7 +5,7 @@
 | 库 | 收录内容 | 种子条目数 |
 |----|---------|-----------|
 | [reports](reports/) | 深度研究报告 | 1 |
-| [incidents](incidents/) | 已证实安全事件 | 18 |
+| [incidents](incidents/) | 已证实安全事件 | 19 |
 | [vulnerabilities](vulnerabilities/) | CVE 与漏洞 | 6 |
 | [vendors](vendors/) | 厂商生态 | 14+ |
 | [papers](papers/) | 论文与基准 | 10 |
