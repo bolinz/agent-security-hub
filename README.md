@@ -6,7 +6,7 @@ Agent 安全知识库与分享项目。收录 Agent 安全的事件、漏洞、�
 
 - **知识库** `library/`：按对象类型分类（见下方）
 - **评估模型** `docs/evaluation/`：风险打分 + 成熟度模型
-- **入门指南** `docs/agent-security-guide.md`：威胁、风险与量化评估（可自学，也可用于 30 分钟分享）
+- **入门指南** `docs/agent-security-guide.md`：威胁、风险与量化评估（自学入门）
 
 ## 知识库结构
 

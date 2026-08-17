@@ -8,7 +8,7 @@
 
 ### 变更
 - `docs/presentation-30min.md` 重构为 `docs/agent-security-guide.md`《Agent 安全指南：威胁、风险与量化评估》
-  - 演讲稿改为书面学习文档（弱化演讲形式），保留 30 分钟演讲能力（附录 A 演讲速用路线）
+  - 演讲稿改为书面学习文档（弱化演讲形式，移除读法与演讲速用路线）
   - 评估模型章节移至收官位置，新增三件套 × 三问价值收束
   - "致命三角（Simon Willison）"改为"结构性风险组合"，锚定 OWASP LLM/Agentic Top 10 与 MITRE ATLAS
   - 新增阅读时间表、每节核心要点、术语速查、权威性分级、推荐阅读
