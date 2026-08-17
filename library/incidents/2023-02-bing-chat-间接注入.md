@@ -22,10 +22,10 @@ related_reports: ["../reports/04-incidents.md"]
 
 ## 经过
 
-安全研究员 Simon Willison 等人发现，Bing Chat（代号 Sydney）在处理包含隐藏指令的网页内容时，会执行网页中嵌入的恶意提示词，而非用户的真实意图。攻击者可在网页中插入白色文字（用户不可见），当 Bing Chat 读取该网页时，隐藏指令会覆盖系统提示，操控对话输出。这是**间接提示注入（Indirect Prompt Injection）**概念的首次公开实证，由 Greshake 等人在论文 *Not what you've signed up for* 中系统化提出（arXiv:2302.12173）。
+2023 年 2-3 月，多个安全研究者独立发现 Microsoft Bing Chat（代号 Sydney）存在间接提示注入漏洞。Greshake 等人在论文 *Not what you've signed up for* 中首次系统化提出间接注入概念并以 Bing Chat 为主要演示目标。攻击者可在网页中插入隐藏指令（白色文字），当 Bing Chat 读取该网页时，隐藏指令会覆盖系统提示，操控对话输出。这是**间接提示注入（Indirect Prompt Injection）**概念的首次公开实证。
 
 ## 来源
 
-- 一手来源：https://simonwillison.net/2023/Mar/1/indirect-prompt-injection-on-bing-chat/
-- 论文：https://arxiv.org/abs/2302.12173
+- 论文（一手来源）：Greshake et al., *Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection*, https://arxiv.org/abs/2302.12173
+- Microsoft 官方文档：https://learn.microsoft.com/en-us/security/zero-trust/catalog-ai-attack-techniques/prompt-injection
 - 核验状态：✅ 证实（V33）
