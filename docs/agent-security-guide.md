@@ -102,7 +102,7 @@ OWASP（开放全球应用安全项目）是全球权威的应用安全标准组
 
 > 图：LLM 应用参考架构（OWASP LLM Top 10 2025 附录 A）——LLM01-LLM10 各风险附着在架构的哪些组件上。来源：[OWASP LLM Top 10](https://genai.owasp.org/llm-top-10/)（CC BY-SA 4.0）。
 
-**这张图画的是**：OWASP LLM Top 10 2025 附录 A 的威胁建模图，一个典型 SaaS LLM 应用架构。左下角是客户端与恶意行为者（云状区域，即不受信任的互联网）；中下方是推理层（LLM 抽象层 + LLM 生产服务）；右侧是插件/扩展、向量数据库、外部数据源与私有数据存储（RAG）；中间是训练数据与微调数据。图中以多个信任边界划分区域，并用红/粉/橙/绿不同颜色方框标注 LLM01-LLM10 每个风险所在的位置。
+该图展示了一个典型 SaaS LLM 应用架构：左下角为客户端与恶意行为者（不受信任的互联网），中下方为推理层（LLM 抽象层 + LLM 生产服务），右侧为插件/扩展、向量数据库、外部数据源与私有数据存储（RAG），中间为训练数据与微调数据；图中以多个信任边界分区，并用不同颜色方框标注 LLM01-LLM10 各风险所在的位置。
 
 按图逐项说明每个风险在架构中的位置与威胁：
 
@@ -131,7 +131,7 @@ OWASP（开放全球应用安全项目）是全球权威的应用安全标准组
 
 > 图：ASI01-ASI10 在 Agent 系统架构中的位置（Inputs / Integration-Processing / Outputs）。来源：[OWASP Agentic Top 10](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)（CC BY-SA 4.0）。
 
-**这张图画的是**：OWASP Agentic Top 10 的官方一页速览，一个 Agent 系统的三区架构——左侧 Inputs（输入区：用户提示、API、外部 Agent）；中间 Integration/Processing（集成处理区：策略与治理、人在环、Agent↔Agent 通信、记忆、RAG）；右侧 Outputs（输出区：工具、API/资源、外部 Agent）。每个风险以编号标签标注在对应组件旁（深蓝色圆角矩形），部分高危项用红色虚线框标出（如 ASI10 恶意代理），底部列出 ASI01-ASI10 完整列表。
+该图是 OWASP Agentic Top 10 的官方一页速览，展示 Agent 系统的三区架构：左侧 Inputs（输入区：用户提示、API、外部 Agent），中间 Integration/Processing（集成处理区：策略与治理、人在环、Agent 间通信、记忆、RAG），右侧 Outputs（输出区：工具、API/资源、外部 Agent）；每个风险以编号标签标注在对应组件旁（深蓝圆角矩形），部分高危项以红色虚线框标出（如 ASI10 恶意代理），底部列出 ASI01-ASI10 完整列表。
 
 按图逐项说明每个风险在 Agent 三区架构中的位置与威胁：
 
