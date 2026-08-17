@@ -118,6 +118,10 @@ OWASP（开放全球应用安全项目）是全球权威的应用安全标准组
 
 > **重点**：LLM01 提示注入连续两版居首，LLM06 过度授权对 Agent 尤其关键。两者叠加就是"被操纵 + 权限太大 = 灾难"。
 
+![OWASP LLM Top 10 2025 附录 A 架构图](images/owasp-llm-2025-appendix-architecture.png)
+
+> 图：LLM 应用参考架构（OWASP LLM Top 10 2025 附录 A）——LLM01-LLM10 各风险附着在架构的哪些组件上。来源：[OWASP LLM Top 10](https://genai.owasp.org/llm-top-10/)（CC BY-SA 4.0）。
+
 **OWASP Agentic Top 10 2026**（Agent 专用十大风险）
 
 > 2025 年 12 月发布，由 OWASP 组织 100+ 位行业专家参与评审（来源：OWASP 官方发布页），专门针对能"规划、行动、决策"的 Agent 系统：
@@ -138,6 +142,10 @@ OWASP（开放全球应用安全项目）是全球权威的应用安全标准组
 │ ASI10│ Rogue Agents（流氓 Agent）                │ 高       │
 └──────┴──────────────────────────────────────────┴──────────┘
 ```
+
+![OWASP Agentic Top 10 一页速览](images/owasp-agentic-top10-glance.png)
+
+> 图：ASI01-ASI10 在 Agent 系统架构中的位置（Inputs / Integration-Processing / Outputs）。来源：[OWASP Agentic Top 10](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/)（CC BY-SA 4.0）。
 
 **核心要点**：LLM Top 10 与 Agentic Top 10 是权威分类基准。对 Agent 而言最关键的是提示注入（LLM01/ASI01）与过度授权（LLM06/ASI03）。
 
