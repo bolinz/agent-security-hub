@@ -14,7 +14,7 @@ agent-security-hub/
 ├── CONTRIBUTING.md          # 贡献指南
 ├── docs/
 │   ├── index.md             # 知识库索引（按风险/时间线/主题）
-│   ├── presentation-30min.md # 30分钟分享文档
+│   ├── agent-security-guide.md # 入门指南（威胁、风险与量化评估）
 │   ├── images/              # OWASP 图片来源记录
 │   └── evaluation/          # 评估模型（risk-score / maturity-model）
 └── library/
