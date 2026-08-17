@@ -98,50 +98,15 @@ OWASP（开放全球应用安全项目）是全球权威的应用安全标准组
 
 **OWASP LLM Top 10 2025**（LLM 应用十大风险）
 
-```
-┌──────┬────────────────────────────────────┬──────────┐
-│ 排名 │ 风险                               │ 对 Agent │
-├──────┼────────────────────────────────────┼──────────┤
-│ LLM01│ Prompt Injection（提示注入）        │ ★★★★★   │
-│ LLM02│ Sensitive Info Disclosure（信息泄露）│ ★★★★☆   │
-│ LLM03│ Supply Chain（供应链）              │ ★★★★☆   │
-│ LLM04│ Data & Model Poisoning（数据投毒）  │ ★★★☆☆   │
-│ LLM05│ Improper Output Handling（输出处理） │ ★★★☆☆   │
-│ LLM06│ Excessive Agency（过度授权）         │ ★★★★★   │
-│ LLM07│ System Prompt Leakage（提示泄露）   │ ★★☆☆☆   │
-│ LLM08│ Vector & Embedding Weaknesses（向量）│ ★★★☆☆   │
-│ LLM09│ Misinformation（错误信息）           │ ★★☆☆☆   │
-│ LLM10│ Unbounded Consumption（资源耗尽）    │ ★★☆☆☆   │
-└──────┴────────────────────────────────────┴──────────┘
-                                    Agent 关键度：★ 越多越重要
-```
-
-> **重点**：LLM01 提示注入连续两版居首，LLM06 过度授权对 Agent 尤其关键。两者叠加就是"被操纵 + 权限太大 = 灾难"。
-
 ![OWASP LLM Top 10 2025 附录 A 架构图](images/owasp-llm-2025-appendix-architecture.png)
 
 > 图：LLM 应用参考架构（OWASP LLM Top 10 2025 附录 A）——LLM01-LLM10 各风险附着在架构的哪些组件上。来源：[OWASP LLM Top 10](https://genai.owasp.org/llm-top-10/)（CC BY-SA 4.0）。
 
+> **重点**：LLM01 提示注入连续两版居首，LLM06 过度授权对 Agent 尤其关键。两者叠加就是"被操纵 + 权限太大 = 灾难"。
+
 **OWASP Agentic Top 10 2026**（Agent 专用十大风险）
 
 > 2025 年 12 月发布，由 OWASP 组织 100+ 位行业专家参与评审（来源：OWASP 官方发布页），专门针对能"规划、行动、决策"的 Agent 系统：
-
-```
-┌──────┬──────────────────────────────────────────┬──────────┐
-│ 排名 │ 风险                                     │ 严重度   │
-├──────┼──────────────────────────────────────────┼──────────┤
-│ ASI01│ Agent Goal Hijack（目标劫持）             │ 极高     │
-│ ASI02│ Tool Misuse（工具滥用）                   │ 极高     │
-│ ASI03│ Identity & Privilege Abuse（身份权限滥用）│ 极高     │
-│ ASI04│ Agentic Supply Chain（供应链）            │ 高       │
-│ ASI05│ Unexpected Code Execution（意外代码执行） │ 高       │
-│ ASI06│ Memory & Context Poisoning（记忆投毒）    │ 高       │
-│ ASI07│ Insecure Inter-Agent Communication（跨Agent通信）│ 中 │
-│ ASI08│ Cascading Failures（级联故障）            │ 中       │
-│ ASI09│ Human-Agent Trust Exploitation（信任利用）│ 高       │
-│ ASI10│ Rogue Agents（流氓 Agent）                │ 高       │
-└──────┴──────────────────────────────────────────┴──────────┘
-```
 
 ![OWASP Agentic Top 10 一页速览](images/owasp-agentic-top10-glance.png)
 
