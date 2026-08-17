@@ -10,17 +10,21 @@
 agent-security-hub/
 ├── README.md                # 入口 + 导航
 ├── CLAUDE.md                # 本文件
+├── CHANGELOG.md             # 变更记录
+├── CONTRIBUTING.md          # 贡献指南
 ├── docs/
+│   ├── index.md             # 知识库索引（按风险/时间线/主题）
 │   ├── presentation-30min.md # 30分钟分享文档
-│   └── evaluation/           # 评估模型（risk-score / maturity-model）
+│   ├── images/              # OWASP 图片来源记录
+│   └── evaluation/          # 评估模型（risk-score / maturity-model）
 └── library/
-    ├── README.md             # 各库导航
-    ├── reports/              # 深度报告
-    ├── incidents/            # 事件库（+_template.md）
-    ├── vulnerabilities/      # 漏洞库（+_template.md）
-    ├── vendors/              # 厂商库（+_template.md）
-    ├── papers/               # 论文库（+_template.md）
-    └── tools/                # 工具库（+_template.md）
+    ├── README.md            # 各库导航
+    ├── reports/             # 深度报告（拆分章节 + 完整归档）
+    ├── incidents/           # 事件库（+_template.md）
+    ├── vulnerabilities/     # 漏洞库（+_template.md）
+    ├── vendors/             # 厂商库（+_template.md）
+    ├── papers/              # 论文库（+_template.md）
+    └── tools/               # 工具库（+_template.md）
 ```
 
 ## 维护约定

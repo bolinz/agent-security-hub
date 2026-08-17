@@ -50,4 +50,4 @@
 
 - **成熟度模型**评估组织能力；**风险模型**评估单个系统风险
 - 建议：先做成熟度定位（找差距），再用风险模型对高危 Agent 打分（排优先级）
-- 工具资产见 [../library/tools](../../library/tools/README.md)；评估数据参考 [../library/incidents](../../library/incidents/README.md) 与 [../library/vulnerabilities](../../library/vulnerabilities/README.md)
+- 工具资产见 [library/tools](../../library/tools/README.md)；评估数据参考 [library/incidents](../../library/incidents/README.md) 与 [library/vulnerabilities](../../library/vulnerabilities/README.md)
