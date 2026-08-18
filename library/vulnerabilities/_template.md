@@ -2,6 +2,8 @@
 
 > 复制为 `CVE-YYYY-XXXXX.md` 填写。
 
+> ⚠️ 新增漏洞入库后，请在 `CHANGELOG.md` 登记，并评估是否触发[评估模型评审](../../docs/evaluation/risk-score.md「失效触发」)。
+
 ## 漏洞信息
 
 - **CVE 编号**：

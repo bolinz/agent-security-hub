@@ -2,6 +2,8 @@
 
 > 复制本文件为 `YYYY-MM-事件名.md` 填写。
 
+> ⚠️ 新增事件入库后，请在 `CHANGELOG.md` 登记，并评估是否触发[评估模型评审](../../docs/evaluation/risk-score.md「失效触发」)。
+
 ## 事件概述
 
 - **时间**：

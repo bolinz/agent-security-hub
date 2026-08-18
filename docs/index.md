@@ -108,6 +108,8 @@
 |------|------|------|
 | 风险评估打分 | 评估单个 Agent 系统风险 | [详情](evaluation/risk-score.md) |
 | 成熟度模型 | 评估组织 Agent 安全能力 | [详情](evaluation/maturity-model.md) |
+| 对抗性测试用例集 | 模型使用前置门禁（验证模型本身） | [详情](evaluation/adversarial-test-cases.md) |
+| 红蓝对抗评审 | 评估模型自身缺陷与修复方案 | [详情](evaluation/red-blue-confrontation-report.md) |
 
 ## 分享材料
 
