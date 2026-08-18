@@ -1,125 +1,125 @@
-# 风险评估打分模型
+# Risk Assessment Scoring Model
 
-> 用于评估**候选 Agent 系统/方案的部署风险**。基于《AI Agent 领域安全挑战与应对方法调研》1.7 风险登记表扩展。
+> Used to evaluate the **deployment risk of a candidate Agent system / solution**. Extended from Section 1.7 of the research report *AI Agent Security Challenges and Response Methods*.
 
-> **模型版本**：1.3.0 ｜ **最后评审**：2026-08-18 ｜ **下次评审期限**：2026-11-18
-> **失效触发**：新增 incident/vulnerability 入库（模板含登记提醒）、校准基线（IBM 等）更新、模型/厂商生态清单变化时，须触发本模型评审；评审前评估结论标注"基于已过期模型"。评审动作登记到 `CHANGELOG.md`。
+> **Model version**: 1.3.0 ｜ **Last review**: 2026-08-18 ｜ **Next review deadline**: 2026-11-18
+> **Invalidation triggers**: This model must be re-reviewed when a new incident/vulnerability is added to the library (templates include a registration reminder), the calibration baseline (IBM, etc.) is updated, or the model/vendor ecosystem list changes. Before review, assessment conclusions must be labeled "based on an outdated model". Review actions are recorded in `CHANGELOG.md`.
 
-## 适用范围（强制前置检查）
+## Applicability Scope (Mandatory Pre-Check)
 
-- **适用**：候选 Agent 系统（工具调用、自主执行能力）的**部署风险**评估；组织现有 Agent 部署。
-- **不适用**：安全关键系统（人身安全/国家安全）、非财务损失主导场景（声誉/合规为主）、军事/关键基础设施。越界使用 = 校准失效，结论不具参考意义。
-- **前置检查**：评估前必须先确认适用性；不适用场景须在评估产出头部声明"超出模型适用范围"并停止打分。
+- **Applicable**: **Deployment risk** assessment of candidate Agent systems (tool invocation, autonomous execution capability); existing organizational Agent deployments.
+- **Not applicable**: Safety-critical systems (physical safety/national security), scenarios not dominated by financial loss (reputation/compliance-led), military/critical infrastructure. Out-of-scope use = calibration failure, conclusions have no reference value.
+- **Pre-check**: Confirm applicability before assessment; out-of-scope scenarios must declare "outside model applicability" at the top of the assessment output and stop scoring.
 
-## 使用指引
+## Usage Guide
 
-- **评估者**：安全工程师 / 架构师 / 采购评估人员
-- **评估对象**：候选 Agent 系统（工具调用、自主执行能力）或组织现有 Agent 部署
-- **评估产出**：风险等级（低/中/高/极危）、验证状态、处置建议
-- **使用前置门禁**：模型须通过 [对抗性测试用例集](./adversarial-test-cases.md) 方可使用；任一用例失败 → 标记"未通过对抗性测试"，评估结论降级处理
+- **Assessor**: Security engineer / Architect / Procurement evaluator
+- **Subject**: Candidate Agent system (tool invocation, autonomous execution) or existing organizational Agent deployments
+- **Output**: Risk level (Low/Medium/High/Critical), verification status, remediation recommendation
+- **Mandatory gate**: The model may only be used after passing the [Adversarial Test Cases](./adversarial-test-cases.md); if any case fails → mark "failed adversarial testing" and downgrade the assessment conclusion
 
-## 验证等级（V0-V3）
+## Verification Levels (V0-V3)
 
-> 结论可信度由**验证等级**门控，与 L/I 数值运算解耦。结论由"最保守口径 + 验证门控 + 确定性规则"三重锁定。参照红蓝对抗评审：`red-blue-confrontation-report.md`。
+> Conclusion credibility is gated by **verification level**, decoupled from L/I numeric computation. Conclusions are triple-locked by "most conservative interpretation + verification gate + deterministic rules". See the red-blue confrontation review: `red-blue-confrontation-report.md`.
 
-| 级 | 名称 | 证据要求 | 结论上限 |
-|----|------|---------|---------|
-| V0 | 未验证 | 纯自评/声明，无独立核验 | **中**（禁止"接受"） |
-| V1 | 附证据 | 每项 L/I 赋值附证据引用（URL/报告/库内链接） | 高 |
-| V2 | 抽查 | 独立于评估团队的复核人抽查原始证据，覆盖率 ≥50%，高风险向量 100% | 极危 |
-| V3 | 外部验证 | 第三方审计代表性样本，审计方资质公开且由双方共同提名 | 极危 |
+| Level | Name | Evidence requirement | Conclusion ceiling |
+|-------|------|---------------------|--------------------|
+| V0 | Unverified | Self-assessment/declaration only, no independent verification | **Medium** ("Accept" prohibited) |
+| V1 | Evidence-attached | Each L/I assignment carries an evidence reference (URL/report/in-library link) | High |
+| V2 | Spot-checked | Reviewer independent of the assessment team spot-checks raw evidence, coverage ≥50%, high-risk vectors 100% | Critical |
+| V3 | Externally verified | Third-party audit of a representative sample; auditor qualifications public and jointly nominated by both parties | Critical |
 
-- **V0 强制条款**：未验证评估不得给出"低/接受"结论；高危/极危结论必须逐条附证据引用。
-- 每次评估必须在产出头部声明验证等级（对应下方 Tier 0/1/2 验证闭环）。
+- **V0 mandatory clause**: Unverified assessments must not give "Low/Accept" conclusions; high-risk/critical conclusions must attach per-item evidence references.
+- Every assessment must declare the verification level at the top of the output (mapped to Tier 0/1/2 verification loops below).
 
-### 验证闭环 Tier 0/1/2
+### Verification Loop Tiers 0/1/2
 
-| Tier | 适用场景 | 机制 | 对应 V |
-|------|---------|------|--------|
-| Tier 0 | 无外部审计（零预算最低保障） | 强制"未验证"标注 + 结论上限（V0）+ ≥2 名署名评估者交叉抽查（高风险向量 100%）+ 每项赋值附证伪条件 | V0-V1 |
-| Tier 1 | 组织内有独立于被评估团队的审核员 | 审核员抽查**原始证据**（非摘要），覆盖率 ≥50%，签署逐项验证声明 | V2 |
-| Tier 2 | 采购/合规场景 | 第三方审计代表性样本；**防宽松审计方条款**：审计方需公开资质、披露与被审计方利益关系、由双方共同提名 | V3 |
+| Tier | Use case | Mechanism | Corresponding V |
+|------|----------|-----------|-----------------|
+| Tier 0 | No external audit (zero-budget minimum safeguard) | Mandatory "unverified" label + conclusion ceiling (V0) + ≥2 named assessors cross-check (high-risk vectors 100%) + falsification condition attached to each assignment | V0-V1 |
+| Tier 1 | Organization has a reviewer independent of the assessed team | Reviewer spot-checks **raw evidence** (not summaries), coverage ≥50%, signs per-item verification statement | V2 |
+| Tier 2 | Procurement/compliance scenarios | Third-party audit of a representative sample; **anti-lenient-auditor clause**: auditor must disclose public qualifications, disclose conflicts of interest with the audited party, jointly nominated by both parties | V3 |
 
-- **审计方独立性**：审计方不得由被评估方单方指定；"完成宣告"必须附证据清单与署名；抽查覆盖率不得低于本表要求。
+- **Auditor independence**: The auditor must not be unilaterally appointed by the assessed party; "completion declaration" must attach an evidence list and signatures; spot-check coverage must not fall below the requirements in the table.
 
-## 评分维度
+## Scoring Dimensions
 
-- **L（可能性 1-5）**：约年发生概率。L1 <1% / L2 1-10% / L3 10-30% / L4 30-70% / L5 >70%
-- **I（影响 1-5）**：**技术影响（C/I/A）+ 业务影响**双因子综合定档（参照 OWASP Risk Rating Methodology），美元仅作校准参照（约合金额见下方 I 定档表）。
-- **风险值 = L × I**（1-25）。档位判定见「5×5 风险矩阵」「边界滞回与尾部覆盖规则」。注：L、I 均为 1-5，乘积实际可取值为 {1,2,3,4,5,6,8,9,10,12,15,16,20,25}。
+- **L (Likelihood 1-5)**: Approximate annual probability of occurrence. L1 <1% / L2 1-10% / L3 10-30% / L4 30-70% / L5 >70%
+- **I (Impact 1-5)**: Combined ranking using the **dual-factor (technical impact C/I/A + business impact)** method (per OWASP Risk Rating Methodology); USD is used only as a calibration reference (approximate amounts in the I ranking table below).
+- **Risk value = L × I** (1-25). Level determination per the "5×5 Risk Matrix" and "Boundary Hysteresis and Tail Coverage Rules". Note: L and I are both 1-5, so the product can only take values in {1,2,3,4,5,6,8,9,10,12,15,16,20,25}.
 
-### 影响 I 定档表
+### Impact I Ranking Table
 
-| I | 技术影响（C/I/A） | 业务影响 | 美元参照（约合） |
-|---|------------------|---------|----------------|
-| 1 | 无数据泄露，服务可用 | 影响可忽略 | <$0.1M |
-| 2 | 非敏感数据少量泄露 | 轻微业务损失 | $0.1-0.5M |
-| 3 | 敏感数据局部泄露，服务部分中断 | 品牌/合规轻度受损 | $0.5-1M |
-| 4 | 大量 PII 泄露，业务中断数天 | 监管处罚、客户流失 | $1-5M |
-| 5 | 全面数据外泄，核心业务停摆 | 人身安全/社会/重大合规 | >$5M |
+| I | Technical impact (C/I/A) | Business impact | USD reference (approx.) |
+|---|--------------------------|-----------------|--------------------------|
+| 1 | No data disclosure, service available | Negligible impact | <$0.1M |
+| 2 | Minor disclosure of non-sensitive data | Minor business loss | $0.1-0.5M |
+| 3 | Partial disclosure of sensitive data, partial service outage | Slight brand/compliance damage | $0.5-1M |
+| 4 | Large-scale PII disclosure, multi-day business outage | Regulatory penalties, customer churn | $1-5M |
+| 5 | Comprehensive data exfiltration, core business outage | Physical safety/societal/major compliance | >$5M |
 
-> 取档原则：先看技术影响（泄露了什么、断了多久），再看业务影响（财务、声誉、合规、隐私）；**含人身/社会等难定价损失时，应上调 I 或单独标注**，不因"难以定价"而低估。
+> Ranking principle: first assess technical impact (what was disclosed, how long the outage), then business impact (financial, reputational, compliance, privacy); **when hard-to-price losses such as physical safety/societal harm are present, escalate I or flag separately** — do not under-rate because something is "hard to price".
 
-## 17 向量参考表
+## 17-Vector Reference Table
 
-| # | 向量 | L | I | 参考风险 | 等级 |
-|---|------|---|---|---------|------|
-| 1 | 直接提示注入 | 5 | 5 | 25 | 极危 |
-| 2 | 间接提示注入 | 5 | 5 | 25 | 极危 |
-| 3 | 越狱 | 4 | 4 | 16 | 高 |
-| 4 | 工具滥用/投毒 | 3 | 4 | 12 | 中 |
-| 5 | 恶意 MCP 服务器 | 3 | 4 | 12 | 中 |
-| 6 | RCE | 3 | 5 | 15 | 高 |
-| 7 | 数据外泄 | 5 | 5 | 25 | 极危 |
-| 8 | 凭证盗窃 | 4 | 4 | 16 | 高 |
-| 9 | 模型窃取 | 3 | 4 | 12 | 中 |
-| 10 | DoS/无界消耗 | 3 | 3 | 9 | 中 |
-| 11 | 智能体间攻击 | 1* | 4 | 4* | 低* |
-| 12 | 恶意/错位智能体 | 4 | 5 | 20 | 极危 |
-| 13 | 供应链攻击 | 4 | 4 | 16 | 高 |
-| 14 | RAG/向量投毒 | 4 | 4 | 16 | 高 |
-| 15 | 系统提示泄露 | 4 | 3 | 12 | 中 |
-| 16 | 过度授权/自治 | 5 | 5 | 25 | 极危 |
-| 17 | Vishing/深伪 | 4 | 5 | 20 | 极危 |
+| # | Vector | L | I | Reference risk | Level |
+|---|--------|---|---|----------------|-------|
+| 1 | Direct prompt injection | 5 | 5 | 25 | Critical |
+| 2 | Indirect prompt injection | 5 | 5 | 25 | Critical |
+| 3 | Jailbreak | 4 | 4 | 16 | High |
+| 4 | Tool misuse/poisoning | 3 | 4 | 12 | Medium |
+| 5 | Malicious MCP server | 3 | 4 | 12 | Medium |
+| 6 | RCE | 3 | 5 | 15 | High |
+| 7 | Data exfiltration | 5 | 5 | 25 | Critical |
+| 8 | Credential theft | 4 | 4 | 16 | High |
+| 9 | Model theft | 3 | 4 | 12 | Medium |
+| 10 | DoS/unbounded consumption | 3 | 3 | 9 | Medium |
+| 11 | Agent-to-agent attack | 1* | 4 | 4* | Low* |
+| 12 | Malicious/misaligned agent | 4 | 5 | 20 | Critical |
+| 13 | Supply chain attack | 4 | 4 | 16 | High |
+| 14 | RAG/vector database poisoning | 4 | 4 | 16 | High |
+| 15 | System prompt leakage | 4 | 3 | 12 | Medium |
+| 16 | Excessive agency/autonomy | 5 | 5 | 25 | Critical |
+| 17 | Vishing/deepfake | 4 | 5 | 20 | Critical |
 
-> *智能体间攻击频率数据稀缺，L1 为保守占位。L×I 为判断性评估（非测量），组织应重估 I。
+> *Data on agent-to-agent attack frequency is scarce; L1 is a conservative placeholder. L×I is a judgmental assessment (not a measurement); organizations should re-estimate I.
 
-## 范围与链预注册
+## Scope and Chain Pre-registration
 
-- 评估开始前须**锁定**适用向量清单（含排除理由）与涉及攻击链，写入评估产出模板。
-- 评估期间任何范围/链的调整必须记录在**变更日志**：`向量变更 | 原因 | 验证等级降级`。
-- 事后断链/缩圈将导致验证等级降级（如 V2→V1），防止"先锁定后改口径"博弈。
+- Before assessment, the applicable vector list (with exclusion reasons) and involved attack chains must be **locked** into the assessment output template.
+- Any scope/chain adjustment during assessment must be recorded in a **change log**: `vector change | reason | verification level downgrade`.
+- Post-hoc chain breaking/scope narrowing causes a verification level downgrade (e.g., V2→V1), preventing "lock first, change the basis later" gaming.
 
-## 使用步骤
+## Usage Steps
 
-1. **识别适用向量**：针对待评估 Agent 的功能（工具集、权限、数据访问）圈定相关向量；**消费不可信内容的 Agent，注入类向量（#1/#2）为必选，不得圈除**
-2. **定 L**：结合环境（是否接触不可信内容、有无沙箱）修正参考 L；偏差 ≥1 分须书面记录理由与证据引用
-3. **定 I**：按组织的资产清单（数据敏感度、可达系统）重估 I；每条 I 赋值须映射到具体能力（工具/权限/数据可达）
-4. **查矩阵**：L×I 得风险值，应用边界滞回与尾部覆盖规则，受验证等级结论上限约束
-5. **链检查**：输出涉及攻击链的，按布尔门控判定整体结论
-6. **汇总**：输出 Top 风险、总体档位（保守主导）、验证状态与处置建议
+1. **Identify applicable vectors**: Select relevant vectors based on the Agent's capabilities (toolset, permissions, data access); **Agents consuming untrusted content must include injection vectors (#1/#2) — they cannot be excluded**
+2. **Set L**: Adjust the reference L based on the environment (whether untrusted content is touched, sandbox present); deviations ≥1 point require written justification and evidence reference
+3. **Set I**: Re-estimate I based on the organization's asset inventory (data sensitivity, reachable systems); each I assignment must map to a concrete capability (tools/permissions/data reachability)
+4. **Consult the matrix**: L×I gives the risk value; apply the boundary hysteresis and tail coverage rules; bounded by the verification-level conclusion ceiling
+5. **Chain check**: For outputs involving attack chains, determine the overall conclusion by boolean gating
+6. **Summarize**: Output top risks, overall level (conservative dominance), verification status, and remediation recommendation
 
-## 评估产出模板
+## Assessment Output Template
 
-> 每次评估必须填写以下元数据块（Tier 0 最小验证闭环）：
+> Every assessment must fill in the following metadata block (Tier 0 minimal verification loop):
 
 ```markdown
-验证状态：Tier [0/1/2] → V[0-3]
-适用范围：✅ 适用（前置检查通过）/ ❌ 超出范围
-模型版本：[版本号] / [评审日期]
-对抗性测试：[用例集版本] / [结果：通过/未通过]
-评估人署名：[姓名 + 角色]
-证伪条件：[观察到 X 即推翻该估值]
-覆盖向量：[清单，含必选向量是否满足]
-总体档位：[低/中/高/极危]
-处置建议：[...]
-验证声明（Tier 1+）：[审核员署名 + 抽查覆盖率]
-审计方声明（Tier 2）：[资质公开 + 利益关系披露 + 共同提名]
+Verification status: Tier [0/1/2] → V[0-3]
+Applicability: ✅ applicable (pre-check passed) / ❌ out of scope
+Model version: [version] / [review date]
+Adversarial testing: [case set version] / [result: passed/failed]
+Assessor signature: [name + role]
+Falsification condition: [observing X invalidates this estimate]
+Covered vectors: [list, including whether mandatory vectors are satisfied]
+Overall level: [Low/Medium/High/Critical]
+Remediation: [...]
+Verification statement (Tier 1+): [reviewer signature + spot-check coverage]
+Auditor statement (Tier 2): [qualifications public + conflict-of-interest disclosure + joint nomination]
 ```
 
-## 5×5 风险矩阵
+## 5×5 Risk Matrix
 
-> 本矩阵为 L×I 公式派生的**查值表**（非人工逐格赋值），仅作报告展示。风险档位由公式计算 + 边界滞回 + 尾部覆盖规则确定。
+> This matrix is a **lookup table** derived from the L×I formula (not manually assigned per cell) for reporting only. Risk level is determined by the formula + boundary hysteresis + tail coverage rules.
 
 | | I1 | I2 | I3 | I4 | I5 |
 |---|---|---|---|---|---|
@@ -129,68 +129,68 @@
 | **L2** | 2 | 4 | 6 | 8 | 10 |
 | **L1** | 1 | 2 | 3 | 4 | 5 |
 
-## 边界滞回与尾部覆盖规则
+## Boundary Hysteresis and Tail Coverage Rules
 
-- **边界滞回**：乘积距档位边界 1 分内一律按**较高档位**处理。因乘积在 {7,13,14,17-19} 不可达，实际生效为：**6→中、12→高、16→极危**。
-- **尾部覆盖规则**：与 L 无关——任何向量 **I≥4 处置等级最低为"中"**，**I=5 最低为"高"**。消除"低频巨损被建议接受"的结构性盲区。
-- **保守主导规则**：多向量评估时，总体风险取所有适用向量中的**最高档位**（最差者主导），不使用平均值或加权汇总。
+- **Boundary hysteresis**: Products within 1 point of a level boundary are always treated as the **higher level**. Since products in {7,13,14,17-19} are unreachable, the effective rules are: **6→Medium, 12→High, 16→Critical**.
+- **Tail coverage rule**: Independent of L — any vector with **I≥4 has a minimum remediation level of "Medium"**, and **I=5 has a minimum of "High"**. Eliminates the structural blind spot where "low-frequency, huge-loss" events would be advised for acceptance.
+- **Conservative dominance rule**: In multi-vector assessments, overall risk takes the **highest level** among all applicable vectors (worst case dominates); averages or weighted sums are not used.
 
-## 确定性修正规则表
+## Deterministic Adjustment Rules Table
 
-> L/I 赋值优先参考下方修正规则；无匹配规则且偏差 ≥1 分时，须书面记录理由与证据引用（见使用步骤 2/3）。**多控制对同一向量的 L 修正叠加上限 -2、I 修正叠加上限 -1；禁止将 L 修正至低于 2。**
+> L/I assignments should first consult the adjustment rules below; where no rule matches and the deviation is ≥1 point, written justification and evidence reference are required (see usage steps 2/3). **Multiple controls adjusting the same vector are capped at -2 for L and -1 for I; L must not be adjusted below 2.**
 
-| 控制/环境 | 影响向量 | 修正 | 生效条件 |
-|-----------|---------|------|---------|
-| 接触不可信内容且无输入隔离 | #1/#2 | L 不得低于 4 | 必选（不可降） |
-| 有沙箱/输入隔离 | #1/#2 | L-1 | 已部署且有证据 |
-| 有注入检测 | #1/#2/#3 | L-1 | 已部署且有证据 |
-| 有输出过滤 | #4/#15 | L-1 | 已部署且有证据 |
-| 有 egress 白名单 | #7 | L-1 | 已部署且有证据 |
-| 有 hard-confirm | #16 | L-1 | 已部署且有证据 |
-| 有最小权限 | #8/#16 | I-1 | 已部署且有证据 |
+| Control/environment | Affected vectors | Adjustment | Activation condition |
+|---------------------|------------------|-----------|----------------------|
+| Consumes untrusted content without input isolation | #1/#2 | L must not be below 4 | Mandatory (cannot be lowered) |
+| Sandbox/input isolation present | #1/#2 | L-1 | Deployed with evidence |
+| Injection detection present | #1/#2/#3 | L-1 | Deployed with evidence |
+| Output filtering present | #4/#15 | L-1 | Deployed with evidence |
+| Egress allowlist present | #7 | L-1 | Deployed with evidence |
+| Hard-confirm present | #16 | L-1 | Deployed with evidence |
+| Least privilege present | #8/#16 | I-1 | Deployed with evidence |
 
-## 阈值登记表
+## Threshold Register
 
-> 所有决策点须登记在册；新增阈值必须先登记。边界行为由「边界滞回与尾部覆盖规则」统一处理。
+> All decision points must be registered; new thresholds must be registered before use. Boundary behavior is handled uniformly by the "Boundary Hysteresis and Tail Coverage Rules".
 
-| 决策点 | 阈值/规则 | 所有者 | 边界行为 |
-|--------|----------|--------|---------|
-| 档位判定 | 低/中/高/极危（查矩阵） | 模型维护者 | 滞回升档 |
-| 尾部覆盖 | I≥4 最低"中"、I=5 最低"高" | 模型维护者 | 覆盖优先于乘积 |
-| 验证等级 | V0-V3 | 评估者 | V0 上限"中"，禁止"接受" |
-| 保守主导 | 总体=最高档位 | 模型维护者 | 最差者主导 |
-| 链门控 | 链内任一高/极危→整体 | 评估者 | 布尔，不可摊平 |
-| 修正叠加 | L 上限 -2、I 上限 -1、L≥2 | 模型维护者 | 证据缺失不生效 |
-| 必选向量 | #1/#2/#7/#8/#16 | 评估者 | 圈除须独立审核 |
+| Decision point | Threshold/rule | Owner | Boundary behavior |
+|----------------|----------------|-------|-------------------|
+| Level determination | Low/Medium/High/Critical (consult matrix) | Model maintainer | Hysteresis upgrade |
+| Tail coverage | I≥4 minimum "Medium", I=5 minimum "High" | Model maintainer | Overrides product |
+| Verification level | V0-V3 | Assessor | V0 ceiling "Medium", "Accept" prohibited |
+| Conservative dominance | Overall = highest level | Model maintainer | Worst case dominates |
+| Chain gating | Any high/critical in chain → overall | Assessor | Boolean, not averaged |
+| Adjustment stacking | L cap -2, I cap -1, L≥2 | Model maintainer | Ineffective without evidence |
+| Mandatory vectors | #1/#2/#7/#8/#16 | Assessor | Exclusion requires independent review |
 
-## 攻击链布尔门控
+## Attack Chain Boolean Gating
 
-- 攻击链须在评估范围预注册阶段声明并锁定；事后断链必须记录理由并降低验证等级。
-- **布尔规则**：链内任一向量结论为高/极危 → 整体结论为高/极危（不按链内环节求均值摊平）。
-- 标准链示例：注入 → 工具滥用 → 数据外泄；供应链 → RCE → 数据外泄；RAG 投毒 → 上下文污染 → 工具滥用。
+- Attack chains must be declared and locked at the assessment scope pre-registration stage; post-hoc chain breaking must be recorded with reasons and lowers the verification level.
+- **Boolean rule**: If any vector in the chain is High/Critical → the overall conclusion is High/Critical (no averaging across chain steps).
+- Standard chain examples: injection → tool misuse → data exfiltration; supply chain → RCE → data exfiltration; RAG poisoning → context contamination → tool misuse.
 
-## 处置建议
+## Remediation Recommendations
 
-> 档位判定顺序：先按乘积查矩阵，再应用边界滞回与尾部覆盖规则，最后受验证等级结论上限约束。
+> Level determination order: first consult the matrix by product, then apply boundary hysteresis and tail coverage rules, finally bounded by the verification-level conclusion ceiling.
 
-| 档位 | 处置 | 约束 |
-|------|------|------|
-| 极危 | 不部署门禁 / 立即修复 | 结论须附逐条证据引用 |
-| 高 | 优先缓解（最小权限、输出过滤、监控） | V0 不得声明"已充分缓解" |
-| 中 | 监控 / 限期复核 | I≥4 的向量不得仅"接受" |
-| 低 | 接受（仅限 I≤3 且 V≥1） | V0 不得"接受" |
+| Level | Remediation | Constraint |
+|-------|-------------|-----------|
+| Critical | Deployment gate / fix immediately | Conclusions require per-item evidence references |
+| High | Prioritized mitigation (least privilege, output filtering, monitoring) | V0 must not claim "sufficiently mitigated" |
+| Medium | Monitor / scheduled re-review | Vectors with I≥4 cannot be merely "accepted" |
+| Low | Accept (only for I≤3 and V≥1) | V0 must not "accept" |
 
-## 示例：评估"可读邮箱 + 可发邮件的客服 Agent"
+## Example: Assessing a "read-email + can-send-email" customer service Agent
 
-1. **适用向量**：#1 直接注入、#2 间接注入、#7 数据外泄、#8 凭证、#16 过度授权
-2. **L**：#1/#2 = 5（接触用户邮件=不可信内容）、#7 = 5（持续接触不可信内容）、#8 = 4、#16 = 5（权限含发信）
-3. **I**：#1/#2 = 5（注入可直接驱动外发）、#7 = 4（PII 量级中等）、#8 = 4、#16 = 5（可放大）
-4. **结果**：注入 25、外泄 20（L5×I4）、凭证 16（高→边界滞回**升极危**）、过度授权 25 → 判定**极危**，需最小权限 + hard-confirm + egress 阻断
-5. **验证**：本示例为演示。作为正式评估产出须附 V≥1 证据引用并填写评估产出模板。
+1. **Applicable vectors**: #1 direct injection, #2 indirect injection, #7 data exfiltration, #8 credentials, #16 excessive agency
+2. **L**: #1/#2 = 5 (touches user email = untrusted content), #7 = 5 (continuously touches untrusted content), #8 = 4, #16 = 5 (permission includes sending)
+3. **I**: #1/#2 = 5 (injection can directly drive outbound sends), #7 = 4 (medium PII volume), #8 = 4, #16 = 5 (amplifiable)
+4. **Result**: injection 25, exfiltration 20 (L5×I4), credentials 16 (High → boundary hysteresis **upgrades to Critical**), excessive agency 25 → verdict **Critical**; requires least privilege + hard-confirm + egress blocking
+5. **Verification**: This example is illustrative. A formal assessment output must attach V≥1 evidence references and fill in the assessment output template.
 
-## 数据来源与局限
+## Data Sources and Limitations
 
-- I 定档方法：参照 [OWASP Risk Rating Methodology](https://owasp.org/www-community/OWASP_Risk_Rating_Methodology)（技术影响 C/I/A + 业务影响），并遵循 NIST AI RMF 的定性/定量混合度量思路（https://airc.nist.gov/airmf-resources/airmf/）
-- 美元校准基线：[IBM Cost of a Data Breach 2026](https://www.ibm.com/reports/data-breach)（$4.99M 全球平均 / 提示注入 $5.89M；检索于 2026-08-06）——仅作 I 档位的量级参照，非评分主尺度
-- 局限：L×I 为判断性评估非测量；结论可信度由验证等级（V0-V3）门控；"无公开数据"向量（如 A2A 频率）应视为不确定性溢价，不得直接按低概率接受；含人身/社会等难定价损失时须上调 I 或单独标注
-- 完整数据来源见 [reports 研究报告](../../library/reports/ai-agent-security-report.md) 1.7 与核验表
+- I ranking method: per [OWASP Risk Rating Methodology](https://owasp.org/www-community/OWASP_Risk_Rating_Methodology) (technical impact C/I/A + business impact), following NIST AI RMF's mixed qualitative/quantitative measurement approach (https://airc.nist.gov/airmf-resources/airmf/)
+- USD calibration baseline: [IBM Cost of a Data Breach 2026](https://www.ibm.com/reports/data-breach) ($4.99M global average / prompt injection $5.89M; retrieved 2026-08-06) — magnitude reference for the I level only, not the primary scoring scale
+- Limitations: L×I is a judgmental assessment, not a measurement; conclusion credibility is gated by verification level (V0-V3); vectors with "no public data" (e.g., A2A frequency) should be treated as an uncertainty premium and must not be accepted as low probability; when hard-to-price losses such as physical safety/societal harm are present, escalate I or flag separately
+- Full data sources: see Section 1.7 and the verification table of the [research report](../../library/reports/ai-agent-security-report.md)

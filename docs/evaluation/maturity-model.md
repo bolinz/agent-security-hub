@@ -1,69 +1,69 @@
-# Agent 安全成熟度模型
+# Agent Security Maturity Model
 
-> 评估**组织**的 Agent 安全能力阶段（非单个系统）。CMMI 风格 0-5 级 × 5 维度。
+> Assesses the **stage of an organization's Agent security capability** (not individual systems). CMMI-style levels 0-5 × 5 dimensions.
 
-> **模型版本**：1.3.0 ｜ **最后评审**：2026-08-18 ｜ **下次评审期限**：2026-11-18
-> **失效触发**：新增 incident/vulnerability 入库、校准基线更新、模型/厂商生态清单变化时，须触发本模型评审；评审前评估结论标注"基于已过期模型"。
+> **Model version**: 1.3.0 ｜ **Last review**: 2026-08-18 ｜ **Next review deadline**: 2026-11-18
+> **Invalidation triggers**: This model must be re-reviewed when a new incident/vulnerability is added to the library, the calibration baseline is updated, or the model/vendor ecosystem list changes. Before review, assessment conclusions must be labeled "based on an outdated model".
 
-## 使用指引
+## Usage Guide
 
-- **评估者**：安全负责人 / 合规 / 架构
-- **评估对象**：组织整体（Agent 部署、流程、治理）
-- **产出**：每维度等级 + 总体等级（取最低维度为瓶颈）+ 验证状态
+- **Assessor**: Security lead / Compliance / Architecture
+- **Subject**: Organization as a whole (Agent deployments, processes, governance)
+- **Output**: Level per dimension + overall level (bottleneck = lowest dimension) + verification status
 
-## 五个维度
+## Five Dimensions
 
-1. **治理**：策略、责任、审批流程、风险登记
-2. **架构**：最小权限、沙箱/隔离、身份管理
-3. **护栏**：注入防御、输出过滤、HITL
-4. **监控**：检测规则、日志审计、响应流程
-5. **供应链**：MCP/依赖治理、SBOM、来源验证
+1. **Governance**: Policy, accountability, approval process, risk register
+2. **Architecture**: Least privilege, sandboxing/isolation, identity management
+3. **Guardrails**: Injection defense, output filtering, HITL
+4. **Monitoring**: Detection rules, log auditing, response process
+5. **Supply chain**: MCP/dependency governance, SBOM, provenance verification
 
-## 等级定义（每维度）
+## Level Definitions (per dimension)
 
-| 级 | 名称 | 行为描述 | 证据要求 |
-|----|------|---------|---------|
-| 0 | 缺失 | 无 Agent 安全实践，Agent 随意接入 | 无 |
-| 1 | 初始 | 有零散意识，无标准；个别项目自发起 | 零散文档/口头约定 |
-| 2 | 已管理 | 有基础策略与权限控制；Agent 需审批接入 | 策略文档、审批记录 |
-| 3 | 已定义 | 纵深防御制度化；护栏/监控/供应链有标准流程 | 制度文件、检测规则、审计日志 |
-| 4 | 量化 | 有安全指标（注入 ASR、驳回率、覆盖度）并度量；指标须从日志/系统实测提取、方向明确 | 指标看板、趋势报告（源自日志实测，非自报） |
-| 5 | 优化 | 持续改进，红队/基准评测常态化；发现的问题有闭环整改记录 | 红队报告、改进记录（含问题→整改→复测闭环） |
+| Level | Name | Behavioral description | Evidence requirement |
+|-------|------|------------------------|----------------------|
+| 0 | None | No Agent security practices; Agents connect freely | None |
+| 1 | Initial | Scattered awareness, no standard; ad hoc in individual projects | Scattered documents / verbal conventions |
+| 2 | Managed | Basic policy and permission control; Agents require approval to connect | Policy documents, approval records |
+| 3 | Defined | Defense-in-depth institutionalized; standard processes for guardrails/monitoring/supply chain | Institutional documents, detection rules, audit logs |
+| 4 | Quantitatively managed | Security metrics (injection ASR, rejection rate, coverage) exist and are measured; metrics must be extracted from logs/system measurement with clear direction | Metric dashboards, trend reports (derived from log measurement, not self-reported) |
+| 5 | Optimizing | Continuous improvement; red-team/benchmark exercises are routine; discovered issues have closed-loop remediation records | Red-team reports, improvement records (with issue → remediation → re-test loop) |
 
-## 评估流程
+## Assessment Process
 
-1. 逐维度定位当前等级（对照行为描述）
-2. 收集证据（政策文件、日志、规则、指标）
-3. 定位差距：目标等级 vs 当前等级
-4. 制定路线图：按维度逐级推进（瓶颈维度优先）
+1. Locate the current level per dimension (against the behavioral descriptions)
+2. Collect evidence (policy documents, logs, rules, metrics)
+3. Identify gaps: target level vs. current level
+4. Build a roadmap: advance per dimension level by level (bottleneck dimension first)
 
-### 验证要求
+### Verification Requirements
 
-- 每次评估须填写**验证状态元数据块**（验证等级、评估人署名、证伪条件、模型版本；定义见 [risk-score.md](./risk-score.md)「验证等级 V0-V3」）。
-- 自评证据须分级：**声明 / 文档 / 实测 / 独立审计**。无实测或独立验证时，结论标注**"名义等级（未验证）"**，不得作为对外保证信号。
-- **保守主导规则**：总体等级取**最低维度（瓶颈）**；任何维度为 0 级时，无论其余维度多高，强制触发专项风险复核。
+- Every assessment must fill in a **verification status metadata block** (verification level, assessor signature, falsification condition, model version; defined in [risk-score.md](./risk-score.md) "Verification Levels V0-V3").
+- Self-assessment evidence must be graded: **declaration / document / measurement / independent audit**. Without measurement or independent verification, the conclusion is labeled **"nominal level (unverified)"** and must not be used as an external assurance signal.
+- **Conservative dominance rule**: The overall level takes the **lowest dimension (bottleneck)**; if any dimension is level 0, a dedicated risk re-review is mandatory regardless of how high the other dimensions are.
 
-### 指标证据规范（L4/L5）
+### Metric Evidence Standards (L4/L5)
 
-- 指标必须从**日志/系统实测**提取，禁止自报表。
-- 每个指标须登记：**方向**（越高/越低越好）、**计算公式**、**数据来源**。
-- 结果型指标优先：注入拦截率、事件响应 p90、平均修复时间 MTTR、红队逃逸率；避免"审批率"等方向歧义指标（可用"驳回率 + 审批时效 p90 + 无理由审批占比"替代）。
-- L5 红队/基准评测报告须含**改进闭环**：前次发现问题 → 整改措施 → 复测结果。
+- Metrics must be extracted from **logs/system measurement**; self-reported tables are prohibited.
+- Each metric must be registered with: **direction** (higher/lower is better), **calculation formula**, **data source**.
+- Outcome-type metrics are preferred: injection blocking rate, incident response p90, mean time to repair (MTTR), red-team escape rate; avoid ambiguous-direction metrics such as "approval rate" (substitute "rejection rate + approval latency p90 + share of approvals without justification").
+- L5 red-team/benchmark reports must include the **improvement loop**: previously found issue → remediation action → re-test result.
 
-## 示例：某团队评估
+## Example: A Team Assessment
 
-| 维度 | 当前级 | 目标级 | 差距行动 |
-|------|--------|--------|---------|
-| 治理 | 2 | 3 | 制定 Agent 接入审批制度与风险登记表 |
-| 架构 | 2 | 3 | 为高权限 Agent 引入沙箱与最小权限 |
-| 护栏 | 1 | 3 | 部署注入检测 + 输出过滤 + HITL |
-| 监控 | 1 | 3 | 落地 Sigma 规则与审计日志 |
-| 供应链 | 1 | 2 | 建立 MCP/依赖白名单与来源验证 |
+| Dimension | Current level | Target level | Gap action |
+|-----------|--------------|--------------|------------|
+| Governance | 2 | 3 | Establish Agent connection approval policy and risk register |
+| Architecture | 2 | 3 | Introduce sandboxing and least privilege for high-privilege Agents |
+| Guardrails | 1 | 3 | Deploy injection detection + output filtering + HITL |
+| Monitoring | 1 | 3 | Implement Sigma rules and audit logging |
+| Supply chain | 1 | 2 | Establish MCP/dependency allowlist and provenance verification |
 
-总体等级 = 最低维度 = 1 → 优先提升护栏/监控/供应链。
+Overall level = lowest dimension = 1 → prioritize guardrails/monitoring/supply chain.
 
-## 与风险模型的配合
+## Cooperation with the Risk Model
 
-- **成熟度模型**评估组织能力；**风险模型**评估单个系统风险
-- 建议：先做成熟度定位（找差距），再用风险模型对高危 Agent 打分（排优先级）
-- 工具资产见 [library/tools](../../library/tools/README.md)；评估数据参考 [library/incidents](../../library/incidents/README.md) 与 [library/vulnerabilities](../../library/vulnerabilities/README.md)
+- **Maturity model** assesses organizational capability; **risk model** assesses individual system risk
+- Recommendation: first do maturity positioning (find gaps), then use the risk model to score high-risk Agents (prioritize)
+- Tool assets: see [library/tools](../../library/tools/README.md); assessment data references: [library/incidents](../../library/incidents/README.md) and [library/vulnerabilities](../../library/vulnerabilities/README.md)

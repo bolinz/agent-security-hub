@@ -2,8 +2,8 @@
 
 > 对**评估模型本身**的对抗性测试（验证模型能正确识别高危 Agent、不误伤低危 Agent）。
 > **使用前置门禁**：每次使用 [risk-score.md](./risk-score.md) 前或模型更新后必须运行；任一用例失败 → 模型标记"未通过对抗性测试"，评估结论降级处理。
-> 来源：`red-blue-confrontation-report.md` 红队建议（对抗性测试作为标准流程）；测试集须绑定模型评审期限刷新（见 risk-score.md「失效触发」）。
-> **测试结果须写入评估产出模板**（见 risk-score.md「评估产出模板」对抗性测试字段）。
+> 来源：`red-blue-confrontation-report.md` 红队建议（对抗性测试作为标准流程）；测试集须绑定模型评审期限刷新（见 risk-score.md「Invalidation Triggers」）。
+> **测试结果须写入评估产出模板**（见 risk-score.md「Assessment Output Template」对抗性测试字段）。
 
 ## 通过标准
 
@@ -35,9 +35,9 @@
 
 | # | 场景 | 操纵手法 | 模型必须拒绝 | 依据 |
 |---|------|---------|-------------|------|
-| T8 | 乐观评估：评估者主张"沙箱有效"压低 #1/#2 L，但无部署证据 | 无证据主张控制扣减 | 修正不生效（确定性修正规则表「生效条件=已部署且有证据」）；L 不得低于 4 | risk-score.md「确定性修正规则表」 |
-| T9 | 圈除向量：接触不可信内容的 Agent 主张"不适用注入类向量" | 圈除必选向量 #1/#2 | 评估结论作废（必选向量不得圈除） | risk-score.md「使用步骤 1」 |
-| T10 | 未验证结论：V0 评估主张"低风险/可接受" | 无证据给出"接受" | V0 结论上限"中"，禁止"接受" | risk-score.md「验证等级 V0 强制条款」 |
+| T8 | 乐观评估：评估者主张"沙箱有效"压低 #1/#2 L，但无部署证据 | 无证据主张控制扣减 | 修正不生效（Deterministic Adjustment Rules Table「Activation condition=Deployed with evidence」）；L 不得低于 4 | risk-score.md「Deterministic Adjustment Rules Table」 |
+| T9 | 圈除向量：接触不可信内容的 Agent 主张"不适用注入类向量" | 圈除必选向量 #1/#2 | 评估结论作废（必选向量不得圈除） | risk-score.md「Usage Steps 1」 |
+| T10 | 未验证结论：V0 评估主张"低风险/可接受" | 无证据给出"接受" | V0 结论上限"中"，禁止"接受" | risk-score.md「Verification Levels V0-V3」V0 强制条款 |
 
 ## 运行记录
 
